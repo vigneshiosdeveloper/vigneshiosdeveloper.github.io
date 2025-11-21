@@ -5,25 +5,44 @@
   <title>Opening ADIB Business App…</title>
 
   <script>
-    // Generate custom scheme URL with query params
-    function getAppSchemeUrl() {
-      const params = window.location.search || "";
-      return "openfinance://login" + params;
+    // iOS App Store fallback
+    const IOS_APP_STORE =
+      "https://apps.apple.com/in/app/adib-direct-business/id1447735010";
+
+    // Android Play Store fallback
+    const ANDROID_PLAY_STORE =
+      "https://play.google.com/store/apps/details?id=com.intellectdesign.cbx";
+
+    function getParams() {
+      return window.location.search || "";
     }
 
-    // ADIB Business App Store fallback
-    const APP_STORE_URL =
-      "https://apps.apple.com/in/app/adib-direct-business/id1447735010";
+    // Get custom scheme URL for both platforms
+    function getAppSchemeUrl() {
+      return "openfinance://login" + getParams();
+    }
+
+    function isIOS() {
+      return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
+
+    function isAndroid() {
+      return /Android/i.test(navigator.userAgent);
+    }
 
     function openAppOrStore() {
       const appUrl = getAppSchemeUrl();
 
-      // Try to open OpenFinance app
+      // Try to open the app
       window.location = appUrl;
 
-      // If fail → fallback to App Store after 1 second
+      // Wait 1 second → redirect to store if app not installed
       setTimeout(function () {
-        window.location = APP_STORE_URL;
+        if (isIOS()) {
+          window.location = IOS_APP_STORE;
+        } else if (isAndroid()) {
+          window.location = ANDROID_PLAY_STORE;
+        }
       }, 1000);
     }
 
@@ -32,6 +51,6 @@
 </head>
 <body>
   <p>Opening ADIB Business App…</p>
-  <p>If nothing happens, you will be redirected to the App Store.</p>
+  <p>If nothing happens, you will be redirected to the App Store / Play Store.</p>
 </body>
 </html>
