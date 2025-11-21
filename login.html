@@ -2,70 +2,154 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Opening ADIB Business App…</title>
+  <title>ADIB – Welcome</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f3f5f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      padding: 32px 24px;
+      max-width: 380px;
+      width: 90%;
+      text-align: center;
+    }
+    .logo {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0070c9, #00a3e0);
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 24px;
+      font-weight: 600;
+    }
+    h1 {
+      font-size: 22px;
+      margin: 8px 0;
+      color: #1f2933;
+    }
+    p.subtitle {
+      font-size: 14px;
+      margin: 0 0 24px;
+      color: #5f6c80;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 12px 16px;
+      margin-top: 12px;
+      border-radius: 999px;
+      border: none;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 0.08s ease, box-shadow 0.08s ease;
+    }
+    .btn-primary {
+      background: #0070c9;
+      color: #ffffff;
+      box-shadow: 0 6px 14px rgba(0, 112, 201, 0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(0, 112, 201, 0.35);
+    }
+    .btn-outline {
+      background: #ffffff;
+      color: #0070c9;
+      border: 1px solid #cbd2e1;
+    }
+    .btn-outline:hover {
+      background: #f4f7fb;
+    }
+    .hint {
+      margin-top: 16px;
+      font-size: 12px;
+      color: #7b8794;
+    }
+  </style>
 
   <script>
-    // iOS App Store (web – works on iPhone and Mac)
     const IOS_APP_STORE =
       "https://apps.apple.com/in/app/adib-direct-business/id1447735010";
 
-    // Android Play Store
     const ANDROID_PLAY_STORE =
       "https://play.google.com/store/apps/details?id=com.intellectdesign.cbx";
 
-    function getParams() {
-      return window.location.search || "";
+    function buildParams(platform) {
+      return (
+        "?flow=businessLogin" +
+        "&platform=" + encodeURIComponent(platform) +
+        "&userId=999" +
+        "&token=ABCDEF"
+      );
     }
 
-    // Deep link into your Cordova app
-    function getAppSchemeUrl() {
-      return "openfinance://login" + getParams();
-    }
+    function openDeepLink(platform) {
+      const params = buildParams(platform);
+      const appUrl = "openfinance://login" + params;
 
-    function isIOS() {
-      return /iPhone|iPad|iPod/i.test(navigator.userAgent);
-    }
+      // Try opening the app
+      window.location.href = appUrl;
 
-    function isAndroid() {
-      return /Android/i.test(navigator.userAgent);
-    }
-
-    function isMacDesktop() {
-      return /Macintosh/i.test(navigator.userAgent);
-    }
-
-    function openAppOrStore() {
-      const appUrl = getAppSchemeUrl();
-
-      // 1) Try to open your OpenFinance app
-      window.location = appUrl;
-
-      // 2) After 1 second, if nothing happened, go to store
+      // Fallback to store
       setTimeout(function () {
-        if (isIOS()) {
-          // iPhone / iPad
-         window.location = IOS_APP_STORE;
-
-        } else if (isAndroid()) {
-          // Android
-          window.location = ANDROID_PLAY_STORE;
-        } else if (isMacDesktop()) {
-          // Mac browser → open the same App Store page (like old code)
-          window.location = IOS_APP_STORE;
+        if (platform === "ios") {
+          window.location.href = IOS_APP_STORE;
         } else {
-          // Other platforms (Windows, etc.)
-        //  window.location = IOS_APP_STORE;
-                    window.location = ANDROID_PLAY_STORE;
-
+          window.location.href = ANDROID_PLAY_STORE;
         }
       }, 1000);
     }
 
-    window.onload = openAppOrStore;
+    function openForIOS() {
+      openDeepLink("ios");
+    }
+
+    function openForAndroid() {
+      openDeepLink("android");
+    }
   </script>
 </head>
 <body>
-  <p>Opening ADIB Business App…</p>
-  <p>If nothing happens, you will be redirected to the App Store / Play Store.</p>
+
+  <div class="container">
+    <div class="logo">
+      AD
+    </div>
+
+    <h1>Welcome to ADIB</h1>
+    <p class="subtitle">
+      Choose your platform to open ADIB Business app.<br/>
+      If the app is not installed, you’ll be redirected to the App Store.
+    </p>
+
+    <button class="btn btn-primary" onclick="openForIOS()">
+      Open on iOS
+    </button>
+
+    <button class="btn btn-outline" onclick="openForAndroid()">
+      Open on Android
+    </button>
+
+    <p class="hint">
+      Deep linking and fallback are handled directly when you tap the buttons.
+    </p>
+  </div>
+
 </body>
 </html>
