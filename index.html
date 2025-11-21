@@ -75,15 +75,37 @@
       transform: translateY(-1px);
       box-shadow: 0 8px 18px rgba(0, 112, 201, 0.35);
     }
+
+    .btn-outline {
+      background: #ffffff;
+      color: #0070c9;
+      border: 1px solid #cbd2e1;
+    }
+
+    .btn-outline:hover {
+      background: #f4f7fb;
+    }
+
+    .hint {
+      margin-top: 16px;
+      font-size: 12px;
+      color: #7b8794;
+    }
   </style>
 
   <script>
-    function openBusiness() {
+    function openForIOS() {
+      // iOS button → go to login.html with platform=ios
       window.location.href =
-        "https://vigneshiosdeveloper.github.io/login.html?flow=businessLogin&userId=999&token=ABCDEF";
+        "https://vigneshiosdeveloper.github.io/login.html?flow=businessLogin&platform=ios&userId=999&token=ABCDEF";
+    }
+
+    function openForAndroid() {
+      // Android button → go to login.html with platform=android
+      window.location.href =
+        "https://vigneshiosdeveloper.github.io/login.html?flow=businessLogin&platform=android&userId=999&token=ABCDEF";
     }
   </script>
-
 </head>
 <body>
 
@@ -94,13 +116,21 @@
 
     <h1>Welcome to ADIB</h1>
     <p class="subtitle">
-      Tap below to open ADIB Business App.<br/>
-      If not installed, you’ll be redirected to the App Store.
+      Choose your platform to open ADIB Business app.<br/>
+      If the app is not installed, you’ll be redirected to the App Store.
     </p>
 
-    <button class="btn btn-primary" onclick="openBusiness()">
-      Open ADIB Business App
+    <button class="btn btn-primary" onclick="openForIOS()">
+      Open on iOS
     </button>
+
+    <button class="btn btn-outline" onclick="openForAndroid()">
+      Open on Android
+    </button>
+
+    <p class="hint">
+      This page only routes you – deep linking and fallback are handled by login.html.
+    </p>
   </div>
 
 </body>
