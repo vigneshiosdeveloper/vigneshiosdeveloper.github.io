@@ -5,7 +5,7 @@
   <title>Opening ADIB Business App…</title>
 
   <script>
-    // iOS App Store (web – works on iPhone and Mac browsers)
+    // iOS App Store (web – works on iPhone and Mac)
     const IOS_APP_STORE =
       "https://apps.apple.com/in/app/adib-direct-business/id1447735010";
 
@@ -17,6 +17,7 @@
       return window.location.search || "";
     }
 
+    // Deep link into your Cordova app
     function getAppSchemeUrl() {
       return "openfinance://login" + getParams();
     }
@@ -36,22 +37,22 @@
     function openAppOrStore() {
       const appUrl = getAppSchemeUrl();
 
-      // Try to open the OpenFinance app
+      // 1) Try to open your OpenFinance app
       window.location = appUrl;
 
-      // Fallback after 1 second
+      // 2) After 1 second, if nothing happened, go to store
       setTimeout(function () {
         if (isIOS()) {
-          // iPhone/iPad → iOS App Store
+          // iPhone / iPad
           window.location = IOS_APP_STORE;
         } else if (isAndroid()) {
-          // Android → Play Store
+          // Android
           window.location = ANDROID_PLAY_STORE;
         } else if (isMacDesktop()) {
-          // Mac browser → open the same App Store web page (like old behavior)
+          // Mac browser → open the same App Store page (like old code)
           window.location = IOS_APP_STORE;
         } else {
-          // Other platforms (Windows, etc.) → generic fallback
+          // Other platforms (Windows, etc.)
           window.location = IOS_APP_STORE;
         }
       }, 1000);
