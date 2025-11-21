@@ -1,24 +1,107 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Universal Link Test</title>
+  <meta charset="utf-8" />
+  <title>ADIB – Welcome</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f3f5f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      padding: 32px 24px;
+      max-width: 380px;
+      width: 90%;
+      text-align: center;
+    }
+
+    .logo {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0070c9, #00a3e0);
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: 22px;
+      margin: 8px 0;
+      color: #1f2933;
+    }
+
+    p.subtitle {
+      font-size: 14px;
+      margin: 0 0 24px;
+      color: #5f6c80;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 12px 16px;
+      margin-top: 12px;
+      border-radius: 999px;
+      border: none;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 0.08s ease, box-shadow 0.08s ease;
+    }
+
+    .btn-primary {
+      background: #0070c9;
+      color: #ffffff;
+      box-shadow: 0 6px 14px rgba(0, 112, 201, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(0, 112, 201, 0.35);
+    }
+  </style>
+
+  <script>
+    function openBusiness() {
+      window.location.href =
+        "https://vigneshiosdeveloper.github.io/login.html?flow=businessLogin&userId=999&token=ABCDEF";
+    }
+  </script>
+
 </head>
 <body>
 
-<h2>Test Universal Link (iOS)</h2>
+  <div class="container">
+    <div class="logo">
+      AD
+    </div>
 
-<button onclick="window.location.href='https://vigneshiosdeveloper.github.io/login.html?userId=999&token=ABCDEF'">
-    Open iOS App
-</button>
+    <h1>Welcome to ADIB</h1>
+    <p class="subtitle">
+      Tap below to open ADIB Business App.<br/>
+      If not installed, you’ll be redirected to the App Store.
+    </p>
 
-
-<br><br>
-
-<h2>Test Android App Link</h2>
-
-<button onclick="window.location.href='https://vigneshiosdeveloper.github.io/openfinance/login?userId=999'">
-    Open Android App
-</button>
+    <button class="btn btn-primary" onclick="openBusiness()">
+      Open ADIB Business App
+    </button>
+  </div>
 
 </body>
 </html>
