@@ -2,31 +2,26 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Open OpenFinance App</title>
+  <title>Opening ADIB Business App…</title>
 
   <script>
-    // 1) Your *universal link* URL (this same page, with params)
-    function getUniversalUrl() {
-      return window.location.href; // keep query params
-    }
-
-    // 2) Your target app custom scheme (already working)
+    // Generate custom scheme URL with query params
     function getAppSchemeUrl() {
-      // reuse same params with your openfinance scheme
       const params = window.location.search || "";
       return "openfinance://login" + params;
     }
 
-    // 3) App Store fallback
-    const APP_STORE_URL = "https://apps.apple.com/in/app/adib-direct-business/id1447735010";
+    // ADIB Business App Store fallback
+    const APP_STORE_URL =
+      "https://apps.apple.com/in/app/adib-direct-business/id1447735010";
 
     function openAppOrStore() {
       const appUrl = getAppSchemeUrl();
 
-      // Try to open the app via custom scheme
+      // Try to open OpenFinance app
       window.location = appUrl;
 
-      // If app is not installed, after 1s go to App Store
+      // If fail → fallback to App Store after 1 second
       setTimeout(function () {
         window.location = APP_STORE_URL;
       }, 1000);
@@ -36,6 +31,7 @@
   </script>
 </head>
 <body>
-  <p>Opening app… If nothing happens, you will be redirected to the App Store.</p>
+  <p>Opening ADIB Business App…</p>
+  <p>If nothing happens, you will be redirected to the App Store.</p>
 </body>
 </html>
