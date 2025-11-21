@@ -5,11 +5,11 @@
   <title>Opening ADIB Business App…</title>
 
   <script>
-    // iOS App Store fallback
+    // iOS App Store (web – works on iPhone and Mac browsers)
     const IOS_APP_STORE =
       "https://apps.apple.com/in/app/adib-direct-business/id1447735010";
 
-    // Android Play Store fallback
+    // Android Play Store
     const ANDROID_PLAY_STORE =
       "https://play.google.com/store/apps/details?id=com.intellectdesign.cbx";
 
@@ -17,7 +17,6 @@
       return window.location.search || "";
     }
 
-    // Get custom scheme URL for both platforms
     function getAppSchemeUrl() {
       return "openfinance://login" + getParams();
     }
@@ -30,18 +29,30 @@
       return /Android/i.test(navigator.userAgent);
     }
 
+    function isMacDesktop() {
+      return /Macintosh/i.test(navigator.userAgent);
+    }
+
     function openAppOrStore() {
       const appUrl = getAppSchemeUrl();
 
-      // Try to open the app
+      // Try to open the OpenFinance app
       window.location = appUrl;
 
-      // Wait 1 second → redirect to store if app not installed
+      // Fallback after 1 second
       setTimeout(function () {
         if (isIOS()) {
+          // iPhone/iPad → iOS App Store
           window.location = IOS_APP_STORE;
         } else if (isAndroid()) {
+          // Android → Play Store
           window.location = ANDROID_PLAY_STORE;
+        } else if (isMacDesktop()) {
+          // Mac browser → open the same App Store web page (like old behavior)
+          window.location = IOS_APP_STORE;
+        } else {
+          // Other platforms (Windows, etc.) → generic fallback
+          window.location = IOS_APP_STORE;
         }
       }, 1000);
     }
