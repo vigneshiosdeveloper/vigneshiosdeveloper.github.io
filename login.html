@@ -44,8 +44,7 @@
       setTimeout(function () {
         if (isIOS()) {
           // iPhone / iPad
-         // window.location = IOS_APP_STORE;
-                    window.location = ANDROID_PLAY_STORE;
+         window.location = IOS_APP_STORE;
 
         } else if (isAndroid()) {
           // Android
@@ -55,7 +54,9 @@
           window.location = IOS_APP_STORE;
         } else {
           // Other platforms (Windows, etc.)
-          window.location = IOS_APP_STORE;
+        //  window.location = IOS_APP_STORE;
+                    window.location = ANDROID_PLAY_STORE;
+
         }
       }, 1000);
     }
