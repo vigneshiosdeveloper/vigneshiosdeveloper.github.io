@@ -99,29 +99,24 @@
       );
     }
 
-    function openDeepLink(platform) {
-      const params = buildParams(platform);
+    // 🔹 iOS: if user is seeing this page, universal link did not open the app.
+    // So just send them to the App Store.
+    function openForIOS() {
+      window.location.href = IOS_APP_STORE;
+    }
+
+    // 🔹 Android: use custom scheme + Play Store fallback.
+    function openForAndroid() {
+      const params = buildParams("android");
       const appUrl = "openfinance://login" + params;
 
-      // Try opening the app
+      // Try opening Android app
       window.location.href = appUrl;
 
-      // Fallback to store
+      // Fallback to Play Store
       setTimeout(function () {
-        if (platform === "ios") {
-          window.location.href = IOS_APP_STORE;
-        } else {
-          window.location.href = ANDROID_PLAY_STORE;
-        }
+        window.location.href = ANDROID_PLAY_STORE;
       }, 1000);
-    }
-
-    function openForIOS() {
-      openDeepLink("ios");
-    }
-
-    function openForAndroid() {
-      openDeepLink("android");
     }
   </script>
 </head>
@@ -134,8 +129,8 @@
 
     <h1>Welcome to ADIB</h1>
     <p class="subtitle">
-      Choose your platform to open ADIB Business app.<br/>
-      If the app is not installed, you’ll be redirected to the App Store.
+      If the app is installed, universal links should open it directly.<br/>
+      Since you're seeing this page on iOS, tap below to install / open from store.
     </p>
 
     <button class="btn btn-primary" onclick="openForIOS()">
@@ -147,7 +142,7 @@
     </button>
 
     <p class="hint">
-      Deep linking and fallback are handled directly when you tap the buttons.
+      iOS app is opened by universal link; this page handles only fallback and Android.
     </p>
   </div>
 
