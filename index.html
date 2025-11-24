@@ -95,15 +95,17 @@
 
   <script>
     function openForIOS() {
-      // iOS button → go to login.html with platform=ios
+      // iOS button → go to login.html with parameters
       window.location.href =
-        "https://vigneshiosdeveloper.github.io/login.html?flow=businessLogin&platform=ios&userId=999&token=ABCDEF";
+        "https://vigneshiosdeveloper.github.io/login.html" +
+        "?flow=businessLogin&platform=ios&userId=999&token=ABCDEF";
     }
 
     function openForAndroid() {
-      // Android button → go to login.html with platform=android
+      // Android button → same login page but platform=android
       window.location.href =
-        "https://vigneshiosdeveloper.github.io/login.html?flow=businessLogin&platform=android&userId=999&token=ABCDEF";
+        "https://vigneshiosdeveloper.github.io/login.html" +
+        "?flow=businessLogin&platform=android&userId=999&token=ABCDEF";
     }
   </script>
 </head>
@@ -117,7 +119,7 @@
     <h1>Welcome to ADIB</h1>
     <p class="subtitle">
       Choose your platform to open ADIB Business app.<br/>
-      If the app is not installed, you’ll be redirected to the App Store.
+      If the app is not installed, you’ll be redirected appropriately.
     </p>
 
     <button class="btn btn-primary" onclick="openForIOS()">
